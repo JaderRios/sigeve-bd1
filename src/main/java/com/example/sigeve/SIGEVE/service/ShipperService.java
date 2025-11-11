@@ -2,7 +2,6 @@ package com.example.sigeve.SIGEVE.service;
 
 
 import com.example.sigeve.SIGEVE.model.Shipper;
-import com.example.sigeve.SIGEVE.model.Shipper;
 import com.example.sigeve.SIGEVE.repository.ShipperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +24,6 @@ public class ShipperService {
     }
 
     public Shipper create(Shipper shipper) {
-        shipper.setId(generateShipperId());
         return shipperRepository.create(shipper);
     }
 
@@ -37,8 +35,4 @@ public class ShipperService {
         return shipperRepository.delete(id);
     }
 
-    private String generateShipperId() {
-        long count = shipperRepository.count() + 1;
-        return String.format("O%04d", count);
-    }
 }

@@ -2,6 +2,7 @@ package com.example.sigeve.SIGEVE.repository;
 
 
 import com.example.sigeve.SIGEVE.model.Category;
+import com.example.sigeve.SIGEVE.model.Shipper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -38,9 +39,16 @@ public class CategoryRepository {
         return (Category) query.getSingleResult();
     }
 
+    @Transactional
     public Category create(Category category) {
-        em.persist(category);
-        return category;
+
+            String sql = "INSERT INTO Categories (CategoryName, Description, Picture) VALUES (?, ?, ?)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, category.getCategoryName());
+            query.setParameter(2, category.getDescription());
+            query.setParameter(3, category.getPicture());
+            query.executeUpdate();
+            return category;
     }
 
 

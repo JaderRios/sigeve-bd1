@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 public class Shipper {
     @Id
     @Column(name = "ShipperID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "CompanyName")

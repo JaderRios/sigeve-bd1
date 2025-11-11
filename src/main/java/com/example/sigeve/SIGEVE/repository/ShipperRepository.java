@@ -1,8 +1,6 @@
 package com.example.sigeve.SIGEVE.repository;
 
 import com.example.sigeve.SIGEVE.model.Shipper;
-import com.example.sigeve.SIGEVE.model.Shipper;
-import com.example.sigeve.SIGEVE.model.Shipper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -39,11 +37,16 @@ public class ShipperRepository {
         return (Shipper) query.getSingleResult();
     }
 
+    @Transactional
     public Shipper create(Shipper shipper) {
-        em.persist(shipper);
+        String sql = "INSERT INTO Shippers (CompanyName, Phone) VALUES (?, ?)";
+        Query query = em.createNativeQuery(sql);
+        query.setParameter(1, shipper.getCompanyName());
+        query.setParameter(2, shipper.getPhone());
+        query.executeUpdate();
+
         return shipper;
     }
-
 
     public Shipper update(String id, Shipper shipper) {
         Query query = em.createNativeQuery(
@@ -59,10 +62,5 @@ public class ShipperRepository {
         Query query = em.createNativeQuery("DELETE FROM Shippers WHERE ShipperID = :id");
         query.setParameter("id", id);
         return query.executeUpdate() > 0;
-    }
-
-    public Long count() {
-        Query countQuery = em.createNativeQuery("SELECT COUNT(*) FROM Shippers");
-        return ((Number) countQuery.getSingleResult()).longValue();
     }
 }
