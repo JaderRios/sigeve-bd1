@@ -1,6 +1,5 @@
 package com.example.sigeve.SIGEVE.service;
 
-import com.example.sigeve.SIGEVE.controller.RegionController;
 import com.example.sigeve.SIGEVE.model.Region;
 import com.example.sigeve.SIGEVE.repository.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
