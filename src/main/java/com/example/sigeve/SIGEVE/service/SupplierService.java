@@ -22,7 +22,6 @@ public class SupplierService {
     }
 
     public Supplier create(Supplier supplier) {
-        supplier.setId(generateSupplierId());
         return supplierRepository.create(supplier);
     }
 
@@ -32,10 +31,5 @@ public class SupplierService {
 
     public boolean delete(String id) {
         return supplierRepository.delete(id);
-    }
-
-    private String generateSupplierId() {
-        long count = supplierRepository.count() + 1;
-        return String.format("C%04d", count);
     }
 }

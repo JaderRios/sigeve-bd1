@@ -2,7 +2,6 @@ package com.example.sigeve.SIGEVE.repository;
 
 
 import com.example.sigeve.SIGEVE.model.Category;
-import com.example.sigeve.SIGEVE.model.Shipper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
