@@ -9,6 +9,7 @@ public class Order {
 
     @Id
     @Column(name = "OrderID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "CustomerID")

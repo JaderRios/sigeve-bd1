@@ -39,7 +39,20 @@ public class OrderRepository {
     }
 
     public Order create(Order order) {
-        em.persist(order);
+        String sql = "INSERT INTO Orders (orderDate, RequiredDate, shippedDate, shipVia, Freight, shipName, ShipAddress, shipCity, ShipRegion, ShipPostalCode, ShipCountry  ) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        Query query = em.createNativeQuery(sql);
+        query.setParameter(1, order.getOrderDate());
+        query.setParameter(2, order.getRequiredDate());
+        query.setParameter(3, order.getShippedDate());
+        query.setParameter(5, order.getShipVia());
+        query.setParameter(4, order.getFreight());
+        query.setParameter(6, order.getShipName());
+        query.setParameter(7, order.getShipAddress());
+        query.setParameter(8, order.getShipCity());
+        query.setParameter(9, order.getShipRegion());
+        query.setParameter(10, order.getShipPostalCode());
+        query.setParameter(11, order.getShipCountry());
+        query.executeUpdate();
         return order;
     }
 
@@ -69,10 +82,5 @@ public class OrderRepository {
         Query query = em.createNativeQuery("DELETE FROM Orders WHERE OrderID = :id");
         query.setParameter("id", id);
         return query.executeUpdate() > 0;
-    }
-
-    public Long count() {
-        Query countQuery = em.createNativeQuery("SELECT COUNT(*) FROM Orders");
-        return ((Number) countQuery.getSingleResult()).longValue();
     }
 }
