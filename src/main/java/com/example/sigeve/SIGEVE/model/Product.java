@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ProductID")
     private String id;
 

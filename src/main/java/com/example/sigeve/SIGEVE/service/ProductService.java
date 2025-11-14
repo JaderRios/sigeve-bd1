@@ -22,7 +22,6 @@ public class ProductService {
     }
 
     public Product create(Product product) {
-        product.setId(generateProductId());
         return productRepository.create(product);
     }
 
@@ -33,14 +32,5 @@ public class ProductService {
     public boolean delete(String id) {
         return productRepository.delete(id);
     }
-
-    private String generateProductId() {
-        long count = productRepository.count() + 1;
-        return String.format("C%04d", count);
-    }
-
-
-
-
 
 }
