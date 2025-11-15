@@ -1,10 +1,7 @@
 package com.example.sigeve.SIGEVE.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Categories")
@@ -19,17 +16,39 @@ public class Category {
     @Column(name = "Description")
     private String description;
 
+    @Lob
     @Column(name = "Picture")
-    private byte[] picture;
-    /// El tipo image de SQL debe ser mapeado para Java
-    /// byte es compatible
+    private byte[] picture; // Cambiar de String a byte[]
 
-    public String getId() { return id;}
-    public void setId(String id) {this.id = id;}
-    public String getCategoryName() {return categoryName;}
-    public void setCategoryName(String categoryName) {this.categoryName = categoryName;}
-    public String getDescription() {return description;}
-    public void setDescription(String description) {this.description = description;}
-    public byte[] getPicture() {return picture;}
-    public void setPicture(byte[] picture) {this.picture = picture;}
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
 }
