@@ -35,7 +35,7 @@ public class RegionService {
     }
 
     private String generateRegionId() {
-        long count = regionRepository.count() + 1;
-        return String.format("R%04d", count);
+        long nextId = regionRepository.count() + 1;
+        return Long.toString(nextId);
     }
 }
