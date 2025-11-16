@@ -2,7 +2,6 @@ package com.example.sigeve.SIGEVE.repository;
 
 
 import com.example.sigeve.SIGEVE.model.Category;
-import com.example.sigeve.SIGEVE.model.Shipper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -46,7 +45,11 @@ public class CategoryRepository {
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, category.getCategoryName());
             query.setParameter(2, category.getDescription());
-            query.setParameter(3, category.getPicture());
+            if (category.getPicture() != null) {
+                query.setParameter(3, category.getPicture());
+            } else {
+                query.setParameter(3, null);
+            }
             query.executeUpdate();
             return category;
     }

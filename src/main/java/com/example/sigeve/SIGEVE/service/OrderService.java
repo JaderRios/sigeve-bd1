@@ -22,7 +22,6 @@ public class OrderService {
     }
 
     public Order create(Order order) {
-        order.setId(generateOrderId());
         return orderRepository.create(order);
     }
 
@@ -32,10 +31,5 @@ public class OrderService {
 
     public boolean delete(String id) {
         return orderRepository.delete(id);
-    }
-
-    private String generateOrderId() {
-        long count = orderRepository.count() + 1;
-        return String.format("O%04d", count);
     }
 }

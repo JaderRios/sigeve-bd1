@@ -9,7 +9,8 @@ public class Order {
 
     @Id
     @Column(name = "OrderID")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "CustomerID")
     private String customerId;
@@ -53,12 +54,11 @@ public class Order {
     @Column(name = "ShipCountry")
     private String shipCountry;
 
-
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

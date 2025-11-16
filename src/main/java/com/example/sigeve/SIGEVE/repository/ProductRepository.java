@@ -39,7 +39,19 @@ public class ProductRepository {
     }
 
     public Product create(Product product) {
-        em.persist(product);
+        String sql = "INSERT INTO Products (ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        Query query = em.createNativeQuery(sql);
+        query.setParameter(1, product.getProductName());
+        query.setParameter(2, product.getSupplierId());
+        query.setParameter(3, product.getCategoryId());
+        query.setParameter(4, product.getQuantityPerUnit());
+        query.setParameter(5, product.getUnitPrice());
+        query.setParameter(6, product.getUnitsInStock());
+        query.setParameter(7, product.getUnitsOnOrder());
+        query.setParameter(8, product.getReorderLevel());
+        query.setParameter(9, product.getDiscontinued());
+        query.executeUpdate();
+
         return product;
     }
 
@@ -66,11 +78,6 @@ public class ProductRepository {
         Query query = em.createNativeQuery("DELETE FROM Products WHERE ProductID = :id");
         query.setParameter("id", id);
         return query.executeUpdate() > 0;
-    }
-
-    public Long count() {
-        Query countQuery = em.createNativeQuery("SELECT COUNT(*) FROM Products");
-        return ((Number) countQuery.getSingleResult()).longValue();
     }
 
 }

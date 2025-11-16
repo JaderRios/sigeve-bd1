@@ -39,7 +39,20 @@ public class SupplierRepository {
     }
 
     public Supplier create(Supplier supplier) {
-        em.persist(supplier);
+        String sql = "INSERT INTO Suppliers (CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        Query query = em.createNativeQuery(sql);
+        query.setParameter(1, supplier.getCompanyName());
+        query.setParameter(2, supplier.getContactName());
+        query.setParameter(3, supplier.getContactTitle());
+        query.setParameter(4, supplier.getAddress());
+        query.setParameter(5, supplier.getCity());
+        query.setParameter(6, supplier.getRegion());
+        query.setParameter(7, supplier.getPostalCode());
+        query.setParameter(8, supplier.getCountry());
+        query.setParameter(9, supplier.getPhone());
+        query.setParameter(10, supplier.getFax());
+        query.setParameter(11, supplier.getHomePage());
+        query.executeUpdate();
         return supplier;
     }
 
@@ -68,11 +81,6 @@ public class SupplierRepository {
         Query query = em.createNativeQuery("DELETE FROM Suppliers WHERE SupplierID = :id");
         query.setParameter("id", id);
         return query.executeUpdate() > 0;
-    }
-
-    public Long count() {
-        Query countQuery = em.createNativeQuery("SELECT COUNT(*) FROM Suppliers");
-        return ((Number) countQuery.getSingleResult()).longValue();
     }
 
 }
