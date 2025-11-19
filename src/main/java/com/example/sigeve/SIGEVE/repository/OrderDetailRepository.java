@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -97,6 +98,19 @@ public class OrderDetailRepository {
     public Long count() {
         Query countQuery = em.createNativeQuery("SELECT COUNT(*) FROM [Order Details]");
         return ((Number) countQuery.getSingleResult()).longValue();
+    }
+
+    public List<OrderDetail> getByOrderId(int orderId) {
+        Query query = em.createNativeQuery(
+                "SELECT * FROM [Order Details] WHERE OrderID = :orderId ORDER BY ProductID",
+                OrderDetail.class);
+        query.setParameter("orderId", orderId);
+
+        try {
+            return query.getResultList();
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
     }
 
     public boolean delete(String id) {

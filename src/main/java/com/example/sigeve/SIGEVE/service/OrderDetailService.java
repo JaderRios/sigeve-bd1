@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderDetailService {
 
@@ -31,6 +33,9 @@ public class OrderDetailService {
 
     public OrderDetail update(String id, OrderDetail orderDetail) {
         return orderDetailRepository.update(id, orderDetail);
+    }
+    public List<OrderDetail> getByOrderId(int orderId) {
+        return orderDetailRepository.getByOrderId(orderId);
     }
 
     public boolean delete(String id) {

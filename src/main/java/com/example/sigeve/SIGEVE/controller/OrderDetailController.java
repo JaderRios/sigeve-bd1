@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/orderDetails")
 public class OrderDetailController {
@@ -51,5 +53,26 @@ public class OrderDetailController {
     public ResponseEntity<Void> delete(@PathVariable String id) {
         boolean deleted = orderDetailService.delete(id);
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/order/{orderId}")
+    public ResponseEntity<List<OrderDetail>> getByOrderId(@PathVariable int orderId) {
+        try {
+            List<OrderDetail> orderDetails = orderDetailService.getByOrderId(orderId);
+            return ResponseEntity.ok(orderDetails);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/order/{orderId}/product/{productId}")
+    public ResponseEntity<Void> deleteOrderDetail(@PathVariable int orderId, @PathVariable int productId) {
+        try {
+            String id = orderId + "-" + productId;
+            boolean deleted = orderDetailService.delete(id);
+            return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
