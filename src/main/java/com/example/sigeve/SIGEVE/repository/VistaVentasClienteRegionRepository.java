@@ -19,7 +19,6 @@ public class VistaVentasClienteRegionRepository {
     @PersistenceContext
     private EntityManager em;
 
-    // Metodo para listar ventas por cliente/región con paginación
     public Page<VistaVentasClienteRegion> list(Pageable pageable) {
         Query query = em.createNativeQuery(
                 "SELECT * FROM VISTA_VENTAS_POR_CLIENTE_REGION ORDER BY cliente " +
@@ -35,7 +34,6 @@ public class VistaVentasClienteRegionRepository {
         return new PageImpl<>(ventas, pageable, total);
     }
 
-    // Metodo para obtener ventas de un cliente específico
     public VistaVentasClienteRegion getByCliente(String cliente) {
         Query query = em.createNativeQuery(
                 "SELECT * FROM VISTA_VENTAS_POR_CLIENTE_REGION WHERE cliente = :cliente",
@@ -45,7 +43,11 @@ public class VistaVentasClienteRegionRepository {
     }
 
     public List<VistaVentasClienteRegion> listAll() {
-        Query query = em.createNativeQuery("SELECT * FROM VISTA_VENTAS_POR_CLIENTE_REGION", VistaVentasClienteRegion.class);
+        Query query = em.createNativeQuery(
+                "SELECT * FROM VISTA_VENTAS_POR_CLIENTE_REGION " +
+                        "ORDER BY pais, region, totalVendido DESC, cliente",
+                VistaVentasClienteRegion.class
+        );
         return query.getResultList();
     }
 }
