@@ -42,11 +42,11 @@ public class OrderService {
             List<OrderDetail> orderDetails = orderDetailService.getByOrderId(Integer.parseInt(id));
 
             for (OrderDetail detail : orderDetails) {
-                String detailId = detail.getOrderId() + detail.getProductId()+"";
+                String detailId = detail.getOrderId() + "-" + detail.getProductId();
                 orderDetailService.delete(detailId);
             }
-            return orderRepository.delete(id);
 
+            return orderRepository.delete(id);
         } catch (Exception e) {
             throw new RuntimeException("Error al eliminar la orden con ID: " + id + ". " + e.getMessage());
         }

@@ -91,7 +91,7 @@ public class OrderRepository {
     public boolean delete(String id) {
 
 
-
+        Query q = em.createNativeQuery("DELETE FROM [Order Details] where OrderID = :id");
         Query query = em.createNativeQuery("DELETE FROM Orders WHERE OrderID = :id");
         query.setParameter("id", id);
         return query.executeUpdate() > 0;
